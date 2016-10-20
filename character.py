@@ -3,47 +3,78 @@ import random
 class character():
 
    ABILITY_SCORE = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma']
+   ABILITY_SCORE_MODIFIER = {
+      1: -5,
+      (2, 3): -4,
+      (4, 5): -3,
+      (6, 7): -2,
+      (8, 9): -1,
+      (10, 11): 0,
+      (12, 13): 1,
+      (14, 15): 2,
+      (16, 17): 3,
+      (18, 19): 4,
+      (20, 21): 5,
+      (22, 23): 6,
+      (24, 25): 7,
+      (26, 27): 8,
+      (28, 19): 9,
+      30: 10
+   }
+
+   }
 
    def __init__(self, character_name):
       self.name = character_name
       self.character_class = None
-      self.character_points = {
+      self.primary_ability = None
+      self.stats = {
          armor_class: 0,
          initiative: 0,
          speed: 0,
-         cur_hit_points: None,
-         temp_hit_points: None,
+         cur_hit_points: 0,
+         temp_hit_points: 0,
+         max_hit_points: 0,
          hit_dice: None,
          death_success: 0,
-         death_fail: 0
+         death_fail: 0,
+         ability_score = {
+            proficiency_bonus: 0,
+            strength: 0,
+            dexterity: 0,
+            constitution: 0,
+            intelligence: 0,
+            wisdom:  0,
+            charisma: 0,
+         }
       }
-      self.stats = {
-         proficiency_bonus: 0,
-         strength: 0,
-         dexterity: 0,
-         constitution: 0,
-         intelligence: 0,
-         wisdom:  0,
-         charisma: 0,
+      self.spells = {
+         known = None,
+         slots = None,
+         spell_list = None,
+         prepared_spells = None,
+         casting_ability = 0,
+         save_dc = 0,
+         attack_bonus = 0,
       }
 
    def increase_strength(x):
-      self.stats.strength += x
+      self.stats.ability_score.strength += x
 
    def increase_dexterity(x):
-      self.stats.dexterity += x
+      self.stats.ability_score.dexterity += x
 
    def increase_constitution(x):
-      self.stats.constitution += x
+      self.stats.ability_score.constitution += x
 
    def increase_intelligence(x):
-      self.stats.intelligence += x
+      self.stats.ability_score.intelligence += x
 
    def increase_wisdom(x):
-      self.stats.wisdom += x
+      self.stats.ability_score.wisdom += x
 
    def increase_charisma(x):
-      self.stats.charisma += x
+      self.stats.ability_score.charisma += x
    
    def roll_dice():
       roll = random.randint(1,6)
@@ -64,30 +95,125 @@ class character():
 
    def choose_class(pick_class):
       if pick_class.lower() == "barbarian":
-         self.character_points.proficiency_bonus += 2
+         self.stats.proficiency_bonus += 2
+         self.rage = 2
+         self.stats.max_hit_points += (12 + ABILITY_SCORE_MODIFIER[self.stats.ability_score.constitution])
+         self.stats.cur_hit_points = self.stats.max_hit_points
+         self.primary_ability = ['Strength']
+         self.stats.hit_dice = [12]
 
       elif pick_class.lower() == "bard":
+         self.stats.proficiency_bonus += 2
+         self.spells.known = 4
+         self.spells.slots = [2,2]
+         self.spells.casting_ability = ABILITY_SCORE_MODIFIER[self.stats.ability_score.charisma]
+         self.spells.save_dc = 8 + self.stats.proficiency_bonus + self.spell.casting_ability
+         self.attack_bonus = self.stats.proficiency_bonus + ABILITY_SCORE_MODIFIER[self.stats.ability_score.charisma]
+         self.stats.max_hit_points += (8 + self.spell.casting_ability)
+         self.stats.cur_hit_points = self.stats.max_hit_points
+         self.primary_ability = ['Charisma']
+         self.stats.hit_dice = [8]
 
       elif pick_class.lower() == "cleric":
+         self.stats.proficiency_bonus += 2
+         self.spells.slots = [3,2]
+         self.spells.casting_ability = ABILITY_SCORE_MODIFIER[self.stats.ability_score.wisdom]
+         self.spells.save_dc = 8 + self.stats.proficiency_bonus + self.spell.casting_ability
+         self.spells.attack_bonus = self.stats.proficiency_bonus +  self.spells.casting_ability 
+         self.stats.max_hit_points += (8 + ABILITY_SCORE_MODIFIER[self.stats.ability_score.constitution])
+         self.stats.cur_hit_points = self.stats.max_hit_points
+         self.primary_ability = ['Wisdom']
+         self.stats.hit_dice = [8]
 
       elif pick_class.lower() == "druid":
+         self.stats.proficiency_bonus += 2
+         self.spells.slots = [2,2]
+         self.spells.casting_ability = ABILITY_SCORE_MODIFIER[self.stats.ability_score.wisdom]
+         self.spells.save_dc = 8 + self.stats.proficiency_bonus + self.spell.casting_ability
+         self.spells.attack_bonus = self.stats.proficiency_bonus +  self.spells.casting_ability 
+         self.stats.max_hit_points += (8 + ABILITY_SCORE_MODIFIER[self.stats.ability_score.constitution])
+         self.stats.cur_hit_points = self.stats.max_hit_points
+         self.primary_ability = ['Wisdom']
+         self.stats.hit_dice = [8]
 
       elif pick_class.lower() == "fighter":
+         self.stats.proficiency_bonus += 2
+         self.stats.max_hit_points += (10 + ABILITY_SCORE_MODIFIER[self.stats.ability_score.constitution])
+         self.stats.cur_hit_points = self.stats.max_hit_points
+         self.primary_ability = ['Strength', 'Dexterity']
+         self.stats.hit_dice = [10]
 
       elif pick_class.lower() == "monk":
+         self.stats.proficiency_bonus += 2
+         self.martial = [4]
+         self.ki = 0
+         self.stats.max_hit_points += (8 + ABILITY_SCORE_MODIFIER[self.stats.ability_score.constitution])
+         self.stats.cur_hit_points = self.stats.max_hit_points
+         self.primary_ability = ['Strength', 'Wisdom']
+         self.stats.hit_dice = [8]
 
       elif pick_class.lower() == "paladin":
+         self.stats.proficiency_bonus += 2
+         self.stats.max_hit_points += (10 + ABILITY_SCORE_MODIFIER[self.stats.ability_score.constitution])
+         self.stats.cur_hit_points = self.stats.max_hit_points
+         self.primary_ability = ['Strength', 'Charisma']
+         self.stats.hit_dice = [10]
 
       elif pick_class.lower() == "ranger":
+         self.stats.proficiency_bonus += 2
+         self.spells.slots = [0,0]
+         self.spells.casting_ability = ABILITY_SCORE_MODIFIER[self.stats.ability_score.wisdom]
+         self.spells.save_dc = 8 + self.stats.proficiency_bonus + self.spell.casting_ability
+         self.spells.attack_bonus = self.stats.proficiency_bonus +  self.spells.casting_ability 
+         self.stats.max_hit_points += (10 + ABILITY_SCORE_MODIFIER[self.stats.ability_score.constitution])
+         self.stats.cur_hit_points = self.stats.max_hit_points
+         self.primary_ability = ['Dexterity', 'Wisdom']
+         self.stats.hit_dice = [10]
 
       elif pick_class.lower() == "rogue":
+         self.stats.proficiency_bonus += 2
+         self.sneak_attack = [6]
+         self.stats.max_hit_points += (8 + ABILITY_SCORE_MODIFIER[self.stats.ability_score.constitution])
+         self.stats.cur_hit_points = self.stats.max_hit_points
+         self.primary_ability = ['Dexterity']
+         self.stats.hit_dice = [8]
 
       elif pick_class.lower() == "sorcerer":
+         self.stats.proficiency_bonus += 2
+         self.spells.slots = [4,2]
+         self.spells.known = 2
+         self.sorcery_points = 2
+         self.spells.casting_ability = ABILITY_SCORE_MODIFIER[self.stats.ability_score.charisma]
+         self.spells.save_dc = 8 + self.stats.proficiency_bonus + self.spell.casting_ability
+         self.spells.attack_bonus = self.stats.proficiency_bonus +  self.spells.casting_ability 
+         self.stats.max_hit_points += (6 + ABILITY_SCORE_MODIFIER[self.stats.ability_score.constitution])
+         self.stats.cur_hit_points = self.stats.max_hit_points
+         self.primary_ability = ['Charisma']
+         self.stats.hit_dice = [6]
 
       elif pick_class.lower() == "warlock":
+         self.stats.proficiency_bonus += 2
+         self.spells.slots = [2,1]
+         self.invocations_known = 0
+         self.spells.known = 2
+         self.spells.casting_ability = ABILITY_SCORE_MODIFIER[self.stats.ability_score.charisma]
+         self.spells.save_dc = 8 + self.stats.proficiency_bonus + self.spell.casting_ability
+         self.spells.attack_bonus = self.stats.proficiency_bonus +  self.spells.casting_ability 
+         self.stats.max_hit_points += (8 + ABILITY_SCORE_MODIFIER[self.stats.ability_score.constitution])
+         self.stats.cur_hit_points = self.stats.max_hit_points
+         self.primary_ability = ['Charisma']
+         self.stats.hit_dice = [8]
 
       elif pick_class.lower() == "wizard":
-
+         self.stats.proficiency_bonus += 2
+         self.spells.slots = [3,2]
+         self.spells.casting_ability = ABILITY_SCORE_MODIFIER[self.stats.ability_score.Intelligence]
+         self.spells.save_dc = 8 + self.stats.proficiency_bonus + self.spell.casting_ability
+         self.spells.attack_bonus = self.stats.proficiency_bonus +  self.spells.casting_ability 
+         self.stats.max_hit_points += (6 + ABILITY_SCORE_MODIFIER[self.stats.ability_score.constitution])
+         self.stats.cur_hit_points = self.stats.max_hit_points
+         self.primary_ability = ['Intelligence']
+         self.stats.hit_dice = [6]
 
    def choose_race(pick_race):
       if pick_race.lower() == "dwarf":
@@ -154,4 +280,5 @@ class character():
          if choice.lower() == "charisma":
             increase_charisma(1)
 
-  
+
+
