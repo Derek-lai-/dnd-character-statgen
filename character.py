@@ -2,26 +2,38 @@ import random
 
 class character():
 
-   ABILITY_SCORE = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma']
-   ABILITY_SCORE_MODIFIER = {
+   ABILITY_SCORES = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma']
+   ABILITY_SCORE_MODIFIER ={
       1: -5,
-      (2, 3): -4,
-      (4, 5): -3,
-      (6, 7): -2,
-      (8, 9): -1,
-      (10, 11): 0,
-      (12, 13): 1,
-      (14, 15): 2,
-      (16, 17): 3,
-      (18, 19): 4,
-      (20, 21): 5,
-      (22, 23): 6,
-      (24, 25): 7,
-      (26, 27): 8,
-      (28, 19): 9,
+      2: -4,
+      3: -4,
+      4: -3,
+      5: -3,
+      6: -2,
+      7: -2,
+      8: -1,
+      9: -1,
+      10: 0,
+      11: 0,
+      12: 1,
+      13: 1,
+      14: 2,
+      15: 2,
+      16: 3,
+      17: 3,
+      18: 4,
+      19: 4,
+      20: 5,
+      21: 5,
+      22: 6,
+      23: 6,
+      24: 7,
+      25: 7,
+      26: 8,
+      27: 8,
+      28: 9,
+      29: 9,
       30: 10
-   }
-
    }
 
    def __init__(self, character_name):
@@ -38,24 +50,24 @@ class character():
          hit_dice: None,
          death_success: 0,
          death_fail: 0,
-         ability_score = {
-            proficiency_bonus: 0,
+         proficiency_bonus: 0
+         ability_score: {
             strength: 0,
             dexterity: 0,
             constitution: 0,
             intelligence: 0,
             wisdom:  0,
-            charisma: 0,
+            charisma: 0
          }
       }
       self.spells = {
-         known = None,
-         slots = None,
-         spell_list = None,
-         prepared_spells = None,
-         casting_ability = 0,
-         save_dc = 0,
-         attack_bonus = 0,
+         known: None,
+         slots: None,
+         spell_list: None,
+         prepared_spells: None,
+         casting_ability: 0,
+         save_dc: 0,
+         attack_bonus: 0,
       }
 
    def increase_strength(x):
@@ -279,6 +291,3 @@ class character():
             increase_wisdom(1)
          if choice.lower() == "charisma":
             increase_charisma(1)
-
-
-
