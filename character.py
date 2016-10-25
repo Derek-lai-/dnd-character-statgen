@@ -1,9 +1,9 @@
 import random
 
-class character():
+class Character():
 
    ABILITY_SCORES = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma']
-   ABILITY_SCORE_MODIFIER ={
+   ABILITY_SCORE_MODIFIER = {
       1: -5,
       2: -4,
       3: -4,
@@ -37,7 +37,7 @@ class character():
    }
 
    def __init__(self, character_name):
-      self.name = character_name
+      self.character_name = character_name
       self.character_class = None
       self.primary_ability = None
       self.stats = {
@@ -50,8 +50,8 @@ class character():
          hit_dice: None,
          death_success: 0,
          death_fail: 0,
-         proficiency_bonus: 0
-         ability_score: {
+         proficiency_bonus: 0,
+         ability_score : {
             strength: 0,
             dexterity: 0,
             constitution: 0,
@@ -272,22 +272,28 @@ class character():
          increase_charisma(2)
 
    def extra_ability_score(x):
-      for i in range(1,x):
-         print("Chose where to allocate your extra point:")
+      try:
+         #loop over number of extra points
+         for i in range(1,x):
+            print("Chose where to allocate your extra point:")
 
-         for i in range(1, len(ABILITY_SCORE)):
-            print("$0 : $1 \n".format(i, ABILITY_SCORE[i]))
+            #loop over the number of ability types
+            for i in range(1, len(ABILITY_SCORE)):
+               print("{0}: {1} \n".format(i, ABILITY_SCORE[i]))
 
-         choice = raw_input(">")
-         if choice.lower() == "strength":
-            increase_strength(1)
-         if choice.lower() == "dexterity":
-            increase_dexterity(1)
-         if choice.lower() == "constitution":
-            increase_constitution(1)
-         if choice.lower() == "intelligence":
-            increase_intelligence(1)
-         if choice.lower() == "wisdom":
-            increase_wisdom(1)
-         if choice.lower() == "charisma":
-            increase_charisma(1)
+            choice = raw_input(">")
+            if choice.lower() == "strength":
+               increase_strength(1)
+            if choice.lower() == "dexterity":
+               increase_dexterity(1)
+            if choice.lower() == "constitution":
+               increase_constitution(1)
+            if choice.lower() == "intelligence":
+               increase_intelligence(1)
+            if choice.lower() == "wisdom":
+               increase_wisdom(1)
+            if choice.lower() == "charisma":
+               increase_charisma(1)
+
+      except: 
+         print 'Invalid Option'
