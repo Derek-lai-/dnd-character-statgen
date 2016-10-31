@@ -4,7 +4,7 @@ import json
 import pprint
 import os
 
-class Start_Charater_Gen:
+class Character_Gen_Menu:
 
 	ABILITY_SCORE = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma']
 	CLASSES = ['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Palidin', 'Ranger', 'Rouge', 'Sorcere', 'Warlock', 'Wiard']
@@ -15,10 +15,15 @@ class Start_Charater_Gen:
 
 	def generate_character(self):
 		self.character = Character()
+		choose_character_name()
 		pick_character_race()
 		pick_character_class()
 		assign_ability_points()
 
+	def choose_character_name(self):
+		print ("Choose a name for your character: \n")
+		choice_name = raw_input("> ")
+		self.character.character_name == choice_name
 
 	def pick_character_race(self):
 		print ("Select a character race:\n")
@@ -75,7 +80,7 @@ class Start_Charater_Gen:
 		print("Character loaded from {0}").format(file_name)
 
 	def main(self):
-		running = true
+		running = True
 		while running:
 			if self.character:
 				print "Current Character: {0}".format(self.character.character_name)
@@ -83,9 +88,10 @@ class Start_Charater_Gen:
 
 			print("Select an option")
 			print ("1: Create new character")
-			print ("2: Save character")
-			print ("3: Load character")
-			print ("4: Quit")
+			print ("2: Play as character")
+			print ("3: Save character")
+			print ("4: Load character")
+			print ("5: Quit")
 
 			choice = raw_input("> ")
 
@@ -93,9 +99,12 @@ class Start_Charater_Gen:
 				generate_character()
 
 			elif choice == 2:
-				save_character()
+
 
 			elif choice == 3:
+				save_character()
+
+			elif choice == 4:
 				dir_path = os.path.dirname(os.path.realpath(__file__))
 				file_dict = []
 
@@ -110,5 +119,9 @@ class Start_Charater_Gen:
 
 				load_character(file_dict[file_choice])
 				 
-			elif choice == 4:
-				running = false
+			elif choice == 5:
+				running = False
+
+if __name__ == "__main__":
+	character_gen = Character_Gen_Menu()
+	character_gen.main()

@@ -38,6 +38,7 @@ class Character():
 
    def __init__(self, character_name):
       self.character_name = character_name
+      self.level = 1
       self.character_class = None
       self.primary_ability = None
       self.stats = {
@@ -118,6 +119,7 @@ class Character():
          self.stats.proficiency_bonus += 2
          self.spells.known = 4
          self.spells.slots = [2,2]
+         self.spells.current_slots = self.spells.slots
          self.spells.casting_ability = ABILITY_SCORE_MODIFIER[self.stats.ability_score.charisma]
          self.spells.save_dc = 8 + self.stats.proficiency_bonus + self.spell.casting_ability
          self.attack_bonus = self.stats.proficiency_bonus + ABILITY_SCORE_MODIFIER[self.stats.ability_score.charisma]
@@ -129,6 +131,7 @@ class Character():
       elif pick_class.lower() == "cleric":
          self.stats.proficiency_bonus += 2
          self.spells.slots = [3,2]
+         self.spells.current_slots = self.spells.slots
          self.spells.casting_ability = ABILITY_SCORE_MODIFIER[self.stats.ability_score.wisdom]
          self.spells.save_dc = 8 + self.stats.proficiency_bonus + self.spell.casting_ability
          self.spells.attack_bonus = self.stats.proficiency_bonus +  self.spells.casting_ability 
@@ -140,6 +143,7 @@ class Character():
       elif pick_class.lower() == "druid":
          self.stats.proficiency_bonus += 2
          self.spells.slots = [2,2]
+         self.spells.current_slots = self.spells.slots
          self.spells.casting_ability = ABILITY_SCORE_MODIFIER[self.stats.ability_score.wisdom]
          self.spells.save_dc = 8 + self.stats.proficiency_bonus + self.spell.casting_ability
          self.spells.attack_bonus = self.stats.proficiency_bonus +  self.spells.casting_ability 
@@ -174,6 +178,7 @@ class Character():
       elif pick_class.lower() == "ranger":
          self.stats.proficiency_bonus += 2
          self.spells.slots = [0,0]
+         self.spells.current_slots = self.spells.slots
          self.spells.casting_ability = ABILITY_SCORE_MODIFIER[self.stats.ability_score.wisdom]
          self.spells.save_dc = 8 + self.stats.proficiency_bonus + self.spell.casting_ability
          self.spells.attack_bonus = self.stats.proficiency_bonus +  self.spells.casting_ability 
@@ -193,6 +198,7 @@ class Character():
       elif pick_class.lower() == "sorcerer":
          self.stats.proficiency_bonus += 2
          self.spells.slots = [4,2]
+         self.spells.current_slots = self.spells.slots
          self.spells.known = 2
          self.sorcery_points = 2
          self.spells.casting_ability = ABILITY_SCORE_MODIFIER[self.stats.ability_score.charisma]
@@ -206,6 +212,7 @@ class Character():
       elif pick_class.lower() == "warlock":
          self.stats.proficiency_bonus += 2
          self.spells.slots = [2,1]
+         self.spells.current_slots = self.spells.slots
          self.invocations_known = 0
          self.spells.known = 2
          self.spells.casting_ability = ABILITY_SCORE_MODIFIER[self.stats.ability_score.charisma]
@@ -219,6 +226,7 @@ class Character():
       elif pick_class.lower() == "wizard":
          self.stats.proficiency_bonus += 2
          self.spells.slots = [3,2]
+         self.spells.current_slots = self.spells.slots
          self.spells.casting_ability = ABILITY_SCORE_MODIFIER[self.stats.ability_score.Intelligence]
          self.spells.save_dc = 8 + self.stats.proficiency_bonus + self.spell.casting_ability
          self.spells.attack_bonus = self.stats.proficiency_bonus +  self.spells.casting_ability 
