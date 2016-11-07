@@ -14,11 +14,11 @@ class Character_Gen_Menu:
 		self.character = None
 
 	def generate_character(self):
-		self.character = Character()
-		choose_character_name()
-		pick_character_race()
-		pick_character_class()
-		assign_ability_points()
+		self.character = Character("blank")
+		self.choose_character_name()
+		self.pick_character_race()
+		self.pick_character_class()
+		self.assign_ability_points()
 
 	def choose_character_name(self):
 		print ("Choose a name for your character: \n")
@@ -28,27 +28,29 @@ class Character_Gen_Menu:
 	def pick_character_race(self):
 		print ("Select a character race:\n")
 
-		for race_index in range(len(RACES)):
-			print '{0}: {1} \n'.format(race_index, RACES[race_index]) 
+		for race_index in range(len(self.RACES)):
+			print '{0}: {1} \n'.format(race_index, self.RACES[race_index]) 
 
-		choice_race = raw_input('> ')
-		self.character.choose_class(CLASSES[choice_race - 1])
+		choice = int(raw_input('> '))
+		choice_race = self.CLASSES[choice]
+		self.character.choose_race(choice_race)
 
 	def pick_character_class(self):
 		print ("Select a class: \n")
 
-		for class_index in range(len(CLASSES)):
-			print '{0}: {1} \n'.format(class_index, CLASSES[class_index])
+		for class_index in range(len(self.CLASSES)):
+			print '{0}: {1} \n'.format(class_index, self.CLASSES[class_index])
 
-		choice_class = raw_input('> ')
-		self.character.choose_class(CLASSES[choice_class - 1])
+		choice_class = int(raw_input('> '))
+		print(self.CLASSES[choice_class - 1])
+		self.character.choose_class(self.CLASSES[choice_class])
 
 	def assign_ability_points(self):
 
 		print ("Primary Ability is: {0} \n The avalible ability scores rolled are:").format(self.character.primary_ability)
 		rolled_stats = self.character.generate_character_stats().sort()
 		
-		for ability in ABILITY_SCORE:
+		for ability in self.ABILITY_SCORE:
 			print rolled_stats
 			print 'Assign point for: {0} '.format(ability)
 			ability_value = raw_input('> ')
@@ -95,16 +97,17 @@ class Character_Gen_Menu:
 
 			choice = raw_input("> ")
 
-			if choice == 1:
-				generate_character()
+			if choice == "1":
+				self.generate_character()
 
-			elif choice == 2:
+			elif choice == "2":
+				pass
 
 
-			elif choice == 3:
+			elif choice == "3":
 				save_character()
 
-			elif choice == 4:
+			elif choice == "4":
 				dir_path = os.path.dirname(os.path.realpath(__file__))
 				file_dict = []
 
@@ -119,7 +122,7 @@ class Character_Gen_Menu:
 
 				load_character(file_dict[file_choice])
 				 
-			elif choice == 5:
+			elif choice == "5":
 				running = False
 
 if __name__ == "__main__":
